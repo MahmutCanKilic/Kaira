@@ -106,7 +106,7 @@ public class Movement : CoreComponents //IImpactable //for jumppads
 
         CheckGround();
     }
-
+    
     public void LogicUpdate()
     {
         CheckGround();
