@@ -15,27 +15,27 @@ public class PlayerEvents : MonoBehaviour
 
     public void OnMove()
     {
-       _moveFeedback?.PlayFeedbacks();
+        _moveFeedback?.PlayFeedbacks();
     }
 
     public void OnJump()
     {
-       _jumpFeedback?.PlayFeedbacks();
+        _jumpFeedback?.PlayFeedbacks();
     }
 
     public void OnLand()
     {
-      _landFeedback?.PlayFeedbacks();
+        _landFeedback?.PlayFeedbacks();
     }
 
     public void OnDash()
     {
 
-       _dashFeedback?.PlayFeedbacks();
+        _dashFeedback?.PlayFeedbacks();
     }
 
     public void OnAttack()
     {
-      //  _attackFeedback?.PlayFeedbacks();
+        _attackFeedback?.PlayFeedbacks();
     }
 }

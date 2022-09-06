@@ -72,6 +72,10 @@ public class PlayerInAirState : BaseState
             _player.PlayerEvents.OnLand();
             //SwitchState(_player.LandState);
         }
+        else if (_player.InputHandler.PrimaryAttack)
+        {
+            SwitchState(_player.PrimaryAttackState);
+        }
         // else if (_player.InputHandler.AttackInputs[(int)CombatInputs.secondary])
         // {
         //     // SwitchState(_player.JumpAttackState);

@@ -10,9 +10,15 @@ public class InputHandler : MonoBehaviour
     public PlayerControls _playerControls;
     private PlayerHandler _player;
 
+    #region other variables
+
     [Header("Variables")]
     [SerializeField] private float _inputHoldTime = 0.2f;
     private float _jumpInputStartTime;
+
+    #endregion
+
+    #region Movement Inputs
 
     [Header("Movement Inputs")] //sonra private yap getters setters ekle
     public bool isMoving;
@@ -21,15 +27,27 @@ public class InputHandler : MonoBehaviour
     public float verticalInput;
     public float horizontalInput;
 
+    #endregion
+
+    #region Jump Inputs
+
     [Header("Jump Variables")]
     [SerializeField] private bool _isJumpPressed;
     [SerializeField] private bool _isJumpReleased;
     public bool IsJumpPressed { get { return _isJumpPressed; } }
     public bool IsJumpReleased { get { return _isJumpReleased; } }
 
+    #endregion
+
+    #region Interactable
+
     [Header("Interactable F key vs")]
     public bool f_Key_Press;
     public bool f_Key_Release;
+
+    #endregion
+
+    #region Dash Input
 
     [Header("Dash Variables")]
     [SerializeField] private bool _isDashPressed;
@@ -37,13 +55,17 @@ public class InputHandler : MonoBehaviour
 
     public bool IsDashPressed { get { return _isDashPressed; } }
 
+    #endregion
+
+    #region Attack Inputs
+
     [Header("Attack Variables")]
     [SerializeField] private bool _primaryAttack;
     [SerializeField] private bool _secondaryAttack;
-
+    [SerializeField] private Vector2 _attackDirection;
     public bool PrimaryAttack { get { return _primaryAttack; } }
     public bool SecondaryAttack { get { return _secondaryAttack; } }
-
+    public Vector2 AttackDirection { get { return _attackDirection; } }
 
     [Header("Weapon Variables")]
     [SerializeField] private bool _isWeaponUp;
@@ -51,6 +73,8 @@ public class InputHandler : MonoBehaviour
 
     public bool IsWeaponUp { get { return _isWeaponUp; } }
     public bool IsWeaponDown { get { return _isWeaponDown; } }
+
+    #endregion
 
     private void Awake()
     {
@@ -165,8 +189,13 @@ public class InputHandler : MonoBehaviour
         _isWeaponUp = _playerControls.PlayerActions.ChangeWeaponUp.WasPressedThisFrame();
         _isWeaponDown = _playerControls.PlayerActions.ChangeWeaponDown.WasPressedThisFrame();
         _primaryAttack = _playerControls.PlayerActions.PrimaryAttack.WasPressedThisFrame();
-        _secondaryAttack= _playerControls.PlayerActions.SecondaryAttack.WasPressedThisFrame();
-    }
+        _secondaryAttack = _playerControls.PlayerActions.SecondaryAttack.WasPressedThisFrame();
+
+       //if (_primaryAttack)
+       //{
+       //    _attackDirection =
+       //}
+    }  //
 
     #endregion
 

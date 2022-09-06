@@ -23,12 +23,18 @@ public class PlayerInteractor : MonoBehaviour
 
     #endregion
 
-    #region 
+    #region Climb
 
     [Header("Climbing")]
     [SerializeField] private LayerMask climbMask;
 
     public LayerMask ClimbMask { get { return climbMask; } }
+
+    #endregion
+
+    #region Enemy
+
+    [SerializeField] private LayerMask _enemyLayerMask;
 
     #endregion
 
@@ -39,6 +45,24 @@ public class PlayerInteractor : MonoBehaviour
 
     private void Update()
     {
+    }
+
+    public void CheckDamage(float damage, Vector2 direction)
+    {
+        //direction yonunde hasar ver
+
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, player.PlayerData.DamageDistance, _enemyLayerMask);
+
+        foreach (var enemy in enemies)
+        {
+            IDamageable damageable = enemy.GetComponent<IDamageable>();
+
+            if (damageable != null)
+            {
+                damageable.Damage(player.PlayerData.DamageAmount);
+            }
+        }
+
     }
 
     public bool CheckIfTouchingWall(float distance)
@@ -115,21 +139,26 @@ public class PlayerInteractor : MonoBehaviour
         return bodyInteract;
     }
 
-   //public bool BodyInteractor(Vector3 whichPart, LayerMask getMask, float interactionDist, out RaycastHit2D sendHit)
-   //{
-   //    bool bodyInteract = Physics2D.Raycast(whichPart, transform.right, out sendHit, interactionDist, getMask);
-   //
-   //    if (bodyInteract)
-   //    {
-   //        Debug.DrawRay(whichPart, transform.right, Color.green);
-   //    }
-   //    else
-   //    {
-   //        Debug.DrawRay(whichPart, transform.right, Color.magenta);
-   //    }
-   //
-   //    return bodyInteract;
-   //}
+    //public bool BodyInteractor(Vector3 whichPart, LayerMask getMask, float interactionDist, out RaycastHit2D sendHit)
+    //{
+    //    bool bodyInteract = Physics2D.Raycast(whichPart, transform.right, out sendHit, interactionDist, getMask);
+    //
+    //    if (bodyInteract)
+    //    {
+    //        Debug.DrawRay(whichPart, transform.right, Color.green);
+    //    }
+    //    else
+    //    {
+    //        Debug.DrawRay(whichPart, transform.right, Color.magenta);
+    //    }
+    //
+    //    return bodyInteract;
+    //}
 
     #endregion
+
+    private void OnDrawGizmos()
+    {
+        
+    }
 }

@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2043555c1fd1a842baa0a8fe06d6df5, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
+  _damageAmount: 10
+  _damageDistance: 6.65
   _amountOfJumps: 1
   _maxJumpHeight: 6
   _maxJumpTime: 0.75
   _coyoteTime: 0.25
   _fallMultiplier: 2
   _amountOfDashes: 1
-  _dashSpeed: 20
+  _dashSpeed: 16
   _dashAttackVelocity: 2
   _wallCheckDist: 0.5
   _wallSlideVelocity: 3

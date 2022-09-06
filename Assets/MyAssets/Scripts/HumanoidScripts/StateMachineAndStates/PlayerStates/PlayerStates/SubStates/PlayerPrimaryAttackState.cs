@@ -3,24 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerPrimaryAttackState : PlayerAbilityState
+{
+    private float _attackDirection;
 
-{    public PlayerPrimaryAttackState(PlayerHandler player, StateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
+    public PlayerPrimaryAttackState(PlayerHandler player, StateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
+        IsRootState = true;
+        InitializeSubState();
     }
+
     public override void EnterState()
     {
         base.EnterState();
 
         _player.AnimationController.PlayTargetAnimation("AttackRouter", false);
 
-      
+        _attackDirection = _player.InputHandler.verticalInput;
+
+        _player.AnimationController.UpdateAnimatorValues("attackDirection",0f, _attackDirection);
     }
+
     public override void UpdateState()
     {
         base.UpdateState();
 
-        CurrentSubState = null;
-        _player.Core.Movement.SetVelocityZero();
+        //CurrentSubState = null;
+        
 
         //CalculateTargetAttackDiretion();
 
@@ -34,6 +42,11 @@ public class PlayerPrimaryAttackState : PlayerAbilityState
         if(_player.IsAbilityDone && _player.Core.Movement.IsGrounded)
         {
             SwitchState(_player.GroundState);
+        }
+        else if(_player.IsAbilityDone && !_player.Core.Movement.IsGrounded)
+        {
+            _player.AnimationController.PlayTargetAnimation("FallStateRouter", false);
+            SwitchState(_player.InAirState);
         }
         else if(_player.InputHandler.IsJumpPressed)
         {
@@ -57,10 +70,10 @@ public class PlayerPrimaryAttackState : PlayerAbilityState
     {
         base.AnimationActionTrigger();
 
-        //_player.PlayerEvents.OnAttack();
-        //_player.WeaponController.CurrentWeapon.Action();
-
-        Debug.Log("PrimAttackAction Triggered");
+        _player.PlayerEvents.OnAttack();
+        _player.PlayerInteractor.CheckDamage(_player.PlayerData.DamageAmount,_player.transform.right);
+        //_player.Core.Combat.Damage();
+       
     }
 
     public override void AnimationFinishTrigger()
@@ -77,6 +90,18 @@ public class PlayerPrimaryAttackState : PlayerAbilityState
     public override void AnimationStopMovement()
     {
         base.AnimationStopMovement();
+    }
+
+    public override void InitializeSubState()
+    {
+        if (!_player.Core.Movement.IsMovementPressed)
+        {
+            SetSubState(_player.IdleState);
+        }
+        else if (_player.Core.Movement.IsMovementPressed)
+        {
+            SetSubState(_player.WalkState);
+        }
     }
 
 }

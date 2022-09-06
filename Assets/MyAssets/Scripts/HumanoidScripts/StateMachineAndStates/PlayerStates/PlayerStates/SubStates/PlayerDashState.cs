@@ -19,10 +19,6 @@ public class PlayerDashState : PlayerAbilityState
         _amountOfDashesLeft--;
         //damage yemeyi kapa**********************
 
-        if (_player.Core.Movement.IsGrounded)
-        {
-            _player.PlayerEvents.OnDash();
-        }
 
         _player.JumpState.ResetAmountOfJumpsLeft();
         //_player.Core.Movement.CanMove = false;
@@ -122,5 +118,15 @@ public class PlayerDashState : PlayerAbilityState
     {
         base.AnimationFinishTrigger();
         _player.IsAbilityDone = true;
+    }
+
+    public override void AnimationActionTrigger()
+    {
+        base.AnimationActionTrigger();
+
+        if (_player.Core.Movement.IsGrounded)
+        {
+            _player.PlayerEvents.OnDash();
+        }
     }
 }
