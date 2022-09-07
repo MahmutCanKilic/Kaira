@@ -5,28 +5,31 @@ public class EnemyAi : MonoBehaviour
 {
     public Transform moveSpot;
     private float waitTime;
-    
+
     public float minX, maxX, minY, maxY, speed, startWaitTime;
     private float moveSpotX, thisX, playerX;
     private Transform player;
     private Vector3 hitDistance;
     private bool takipediyormu;
     private float followDistance;
-
+    private float attack;
     void Start()
     {
+        //Attack = 2 gezinme, Attack = 1 attack, Attack = 0 takip
         waitTime = startWaitTime;
         moveSpot.position = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
-        if (gameObject.tag == "Enemy")
+        switch (gameObject.tag)
         {
-            followDistance = 6f;
-            hitDistance = new Vector3(1.5f, 0, 0);
-        }
-        
-        if (gameObject.tag == "Enemy1")
-        {
-            followDistance = 10f;
-            hitDistance = new Vector3(5f, 0, 0);
+            case "Enemy":
+                followDistance = 6f;
+                hitDistance = new Vector3(1.5f, 0, 0);
+                break;
+            case "Enemy1":
+                followDistance = 10f;
+                hitDistance = new Vector3(5f, 0, 0);
+                break;
+            default:
+                break;
         }
         player = GameObject.FindWithTag("Player").transform;
     }
@@ -37,10 +40,25 @@ public class EnemyAi : MonoBehaviour
         moveSpotX = Mathf.Abs(moveSpot.position.x);
         thisX = transform.position.x;
         playerX = player.position.x;
-        
-        
 
-        if (!takipediyormu)
+        PatrolAI();
+
+        if (moveSpotX > thisX && attack == 2)
+            transform.localScale = new Vector3(.2f, .25f, 1);
+        if (moveSpotX < thisX && attack == 2)
+            transform.localScale = new Vector3(-.2f, .25f, 1);
+
+        if (Vector2.Distance(transform.position, player.position) <= hitDistance.x)
+        {
+            StartCoroutine(Coroutine());
+        }
+
+        FollowAI();
+
+    }
+    private void PatrolAI()
+    {
+        if (attack == 2)
         {
             transform.position = Vector2.MoveTowards(transform.position, moveSpot.position, speed * Time.deltaTime);
             if (Vector2.Distance(transform.position, moveSpot.position) < 0.2f)
@@ -56,23 +74,19 @@ public class EnemyAi : MonoBehaviour
                 }
             }
         }
+    }
 
-
-
-        if (moveSpotX > thisX && !takipediyormu)
-            transform.localScale = new Vector3(.2f, .25f, 1);
-        if (moveSpotX < thisX && !takipediyormu)
-            transform.localScale = new Vector3(-.2f, .25f, 1);
-
+    private void FollowAI()
+    {
         if (Mathf.Abs(thisX - playerX) <= followDistance)
         {
-            takipediyormu = true;
-            if (player.position.x > transform.position.x && takipediyormu)
+            attack = 0;
+            if (player.position.x > transform.position.x && attack == 0)
             {
                 transform.position = Vector2.MoveTowards(transform.position, new Vector3(player.position.x, -3.672009f) - hitDistance, speed * Time.deltaTime);
                 transform.localScale = new Vector3(.2f, .25f, 1);
             }
-            else if (player.position.x < transform.position.x && takipediyormu)
+            else if (player.position.x < transform.position.x && attack == 0)
             {
                 transform.position = Vector2.MoveTowards(transform.position, new Vector3(player.position.x, -3.672009f) + hitDistance, speed * Time.deltaTime);
                 transform.localScale = new Vector3(-.2f, .25f, 1);
@@ -80,8 +94,24 @@ public class EnemyAi : MonoBehaviour
         }
         if (Vector2.Distance(transform.position, player.position) > followDistance)
         {
-            takipediyormu = false;
+            attack = 2;
         }
     }
 
+    private IEnumerator Coroutine()
+    {
+        Debug.Log("Attack yaptý");
+        attack = 1;
+        speed = 0;
+        yield return new WaitForSeconds(/*attack animasyonunun süresi*/1);
+        Debug.Log("Attack bitti");
+        attack = 0;
+        speed = 4;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, hitDistance.x);   
+    }
 }
