@@ -8,6 +8,7 @@ TagManager:
   - jumpable
   - apple
   - Enemy1
+  - spike
   layers:
   - Default
   - TransparentFX
