@@ -1355,7 +1355,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_LocalRotation: {x: -0.07924447, y: 0.000000017152548, z: 0.0000000013635327, w: 0.9968552}
+  m_LocalRotation: {x: -0.07924447, y: -0.000000017152267, z: -0.0000000013635104, w: 0.9968552}
   m_LocalPosition: {x: 11.25, y: 2.55, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1415,14 +1415,14 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: -1
+  m_RendererIndex: 0
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 0
-  m_Antialiasing: 0
+  m_Antialiasing: 2
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
@@ -2186,9 +2186,6 @@ MonoBehaviour:
   maxY: -2.68
   speed: 2
   startWaitTime: 3
-  followDistance: 0
-  hitDistance: 2
-  rb: {fileID: 850759131}
 --- !u!50 &850759131
 Rigidbody2D:
   serializedVersion: 4
@@ -2226,7 +2223,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 6, y: 9}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
@@ -4029,7 +4026,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2045305380}
-  m_LocalRotation: {x: -0, y: 4.9809046e-12, z: 7.970291e-13, w: 1}
+  m_LocalRotation: {x: -0, y: 1.7763568e-15, z: 2.220446e-16, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
