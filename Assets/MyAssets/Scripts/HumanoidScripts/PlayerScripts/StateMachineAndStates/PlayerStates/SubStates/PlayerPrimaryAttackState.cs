@@ -48,10 +48,10 @@ public class PlayerPrimaryAttackState : PlayerAbilityState
             _player.AnimationController.PlayTargetAnimation("FallStateRouter", false);
             SwitchState(_player.InAirState);
         }
-        else if(_player.InputHandler.IsJumpPressed)
-        {
-            SwitchState(_player.JumpState);
-        }
+       //else if(_player.InputHandler.IsJumpPressed)
+       //{
+       //    SwitchState(_player.JumpState);
+       //}
     }
 
     public override void PhysicsUpdateState()
