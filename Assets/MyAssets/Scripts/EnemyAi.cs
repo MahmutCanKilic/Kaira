@@ -48,7 +48,7 @@ public class EnemyAi : MonoBehaviour
         if (moveSpotX < thisX && attack == 2)
             transform.localScale = new Vector3(-.2f, .25f, 1);
 
-        if (transform.position.x <= hitDistance.x)
+        if (Vector2.Distance(transform.position, player.position) <= hitDistance.x)
         {
             StartCoroutine(Coroutine());
         }
@@ -107,5 +107,11 @@ public class EnemyAi : MonoBehaviour
         Debug.Log("Attack bitti");
         attack = 0;
         speed = 4;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, hitDistance.x);   
     }
 }
