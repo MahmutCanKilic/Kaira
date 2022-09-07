@@ -27,11 +27,6 @@ public class PlayerPrimaryAttackState : PlayerAbilityState
     {
         base.UpdateState();
 
-        //CurrentSubState = null;
-        
-
-        //CalculateTargetAttackDiretion();
-
         CheckSwitchStates();
     }
 
@@ -48,17 +43,11 @@ public class PlayerPrimaryAttackState : PlayerAbilityState
             _player.AnimationController.PlayTargetAnimation("FallStateRouter", false);
             SwitchState(_player.InAirState);
         }
-       //else if(_player.InputHandler.IsJumpPressed)
-       //{
-       //    SwitchState(_player.JumpState);
-       //}
     }
 
     public override void PhysicsUpdateState()
     {
         base.PhysicsUpdateState();        
-
-        //damage check burada ya da interactorde olabilir //weaponda olmali gibi
     }
 
     public override void ExitState()
@@ -71,8 +60,7 @@ public class PlayerPrimaryAttackState : PlayerAbilityState
         base.AnimationActionTrigger();
 
         _player.PlayerEvents.OnAttack();
-        _player.PlayerInteractor.CheckDamage(_player.PlayerData.DamageAmount,_player.transform.right);
-        //_player.Core.Combat.Damage();
+        _player.PlayerInteractor.CheckDamage(_player.PlayerData.DamageAmount, _attackDirection);
        
     }
 

@@ -72,21 +72,6 @@ public class Movement : CoreComponents //IImpactable //for jumppads
 
     #endregion
 
-    #region Slopes
-
-    [Header("Slopes")]
-    [SerializeField] private float _slopeSlideSpeed = 1;
-    [SerializeField] private Vector3 _slopeHit;
-    [SerializeField] private Vector3 _slopeHitNormal;
-    [SerializeField] private Vector3 _slideDirection;
-    [SerializeField] private bool _canSlide = true; //gecici cozum baska yol bulmak lazim
-
-    public Vector3 SlopeHit { get { return _slopeHit; } set { _slopeHit = value; } }
-    public Vector3 SlopeHitNormal { get { return _slopeHitNormal; } set { _slopeHitNormal = value; } }
-    public bool CanSlide { get { return _canSlide; } set { _canSlide = value; } }
-
-    #endregion
-
     #region impact
 
     [SerializeField] private bool _isAddingImpact = false;
@@ -97,10 +82,6 @@ public class Movement : CoreComponents //IImpactable //for jumppads
     protected override void Awake()
     {
         base.Awake();
-
-        CanSlide = true;
-
-        //CharacterController = GetComponentInParent<CharacterController2D>();
 
         Rigidbody = GetComponentInParent<Rigidbody2D>();
 
@@ -113,51 +94,14 @@ public class Movement : CoreComponents //IImpactable //for jumppads
 
         CurrentVelocity = Rigidbody.velocity;
 
-        //Rigidbody.velocity = MoveDirection * CurrentSpeed;
-
-        //CharacterController.Move(_moveDirection.x * CurrentSpeed * Time.deltaTime,false,false);
-        //CharacterController.Move(_moveDirection * CurrentSpeed * Time.deltaTime);
-
-        //if (_isGrounded && CanSlide)
-        //{
-        //    if (Vector3.Angle(Vector3.up, _slopeHitNormal) >= CharacterController.slopeLimit)
-        //    {
-        //        HandleSlopeMovement();
-        //    }
-        //}
-
-        // Rigidbody.velocity = new Vector2(MoveDirection.x, JumpVelocity.y);
-        // CharacterController.Move(JumpVelocity.y * Time.deltaTime,false,true);
-
         HandleSetGravity();
     }
 
     private void CheckGround()
     {
-        //_isGrounded = Physics.CheckSphere(GroundCheck.position, _groundRad, groundMask); //physics update gidebilir
         _isGrounded = Physics2D.OverlapCircle(GroundCheck.position, _groundRad, groundMask);
     }
 
-    #region Slopes
-
-    public void HandleSlopeMovement()
-    {
-        //Debug.Log("kayDiiii");
-        Vector3 slopeDir = Vector3.up - _slopeHitNormal * Vector3.Dot(Vector3.up, _slopeHitNormal);
-        float slideSpeed = CurrentSpeed + _slopeSlideSpeed + Time.deltaTime;
-
-        _slideDirection = slopeDir * -slideSpeed;
-        _slideDirection.y = _slideDirection.y - _slopeHit.y;
-
-        if (_slideDirection.y > 0)
-        {
-            _slideDirection.y = -0.05f;
-        }
-
-        // CharacterController.Move(_slideDirection * Time.deltaTime);
-    }
-
-    #endregion
 
     #region gravity
 
@@ -262,9 +206,7 @@ public class Movement : CoreComponents //IImpactable //for jumppads
         }
     }
 
-    #endregion
-
-   
+    #endregion   
 
     #region Flip
 
@@ -307,5 +249,4 @@ public class Movement : CoreComponents //IImpactable //for jumppads
         }
     }
     #endregion
-
 }

@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class Combat : CoreComponents, IDamageable
 {
-
     [SerializeField] private float _health = 100;
     public void Damage(float damageAmount)
     {
@@ -14,7 +13,6 @@ public class Combat : CoreComponents, IDamageable
 
         _health = _health - damageAmount;
 
-        //playera ya da enemye erisemiyoruz state ayarlayamiyorum.
         //health ui guncellemek icin playeruicontrollera erisemiyorum
         //damage geldiginde stun yesin animasyona girsin
         //ses bozulsun

@@ -105,24 +105,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ChangeWeaponUp",
-                    "type": "Button",
-                    "id": "704186ff-f354-482d-a370-3eb10aab871d",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ChangeWeaponDown",
-                    "type": "Button",
-                    "id": "700241fe-0bec-4c4f-9c2e-5752d1bc886c",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "PrimaryAttack",
                     "type": "Button",
                     "id": "d5924893-b2a8-4a14-b036-7c229e86d206",
@@ -177,30 +159,8 @@
                 },
                 {
                     "name": "",
-                    "id": "969e9589-5e24-4248-b14f-d191bb0618b4",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ChangeWeaponUp",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "12b16524-5702-4842-9e16-d350fd1592c2",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ChangeWeaponDown",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "fae55850-1530-44b9-8498-5d2f93d77f61",
-                    "path": "<Keyboard>/x",
+                    "path": "<Keyboard>/z",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -211,7 +171,7 @@
                 {
                     "name": "",
                     "id": "c1eab6bc-2d43-4acc-9734-ae60ada3b5ef",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

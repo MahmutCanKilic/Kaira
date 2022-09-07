@@ -5,23 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "newPlayerData", menuName = "Data/PlayerData/BaseData")]
 public class PlayerData : ScriptableObject
 {
-    //#region Move Variables
-    //
-    //[Header("Move State")]
-    ////[SerializeField] private float _walkSpeed = 2;
-    ////[SerializeField] private float _sprintSpeed = 6;
-    ////
-    ////public float WalkSpeed { get { return _walkSpeed; } }
-    ////public float SprintSpeed { get { return _sprintSpeed; } }
-    //
-    //#endregion
-
     #region Combat
 
     [SerializeField] private float _damageAmount = 10f;
-    [SerializeField] private float _damageDistance = 1f;
+   
     public float DamageAmount { get { return _damageAmount; } }
-    public float DamageDistance { get { return _damageDistance; } }
+
     #endregion
 
     #region Jump Variables with getters and setters 
@@ -52,11 +41,11 @@ public class PlayerData : ScriptableObject
 
     [Header("Dash Variables")]
     [SerializeField] private int _amountOfDashes = 1;
-    [SerializeField] private float _dashSpeed = 2f;     //playerdata**
-    [SerializeField] private float _dashAttackVelocity = 2f;       //playerdata**
+    [SerializeField] private float _dashSpeed = 2f;   
+    [SerializeField] private float _dashAttackVelocity = 2f;      
     public int AmountOfDashes { get { return _amountOfDashes; } }
-    public float DashVelocity { get { return _dashSpeed; } } //playerdata**
-    public float DashAttackVelocity { get { return _dashAttackVelocity; } } //playerdata**
+    public float DashVelocity { get { return _dashSpeed; } } 
+    public float DashAttackVelocity { get { return _dashAttackVelocity; } } 
 
     #endregion
 

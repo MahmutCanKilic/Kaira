@@ -67,13 +67,6 @@ public class InputHandler : MonoBehaviour
     public bool SecondaryAttack { get { return _secondaryAttack; } }
     public Vector2 AttackDirection { get { return _attackDirection; } }
 
-    [Header("Weapon Variables")]
-    [SerializeField] private bool _isWeaponUp;
-    [SerializeField] private bool _isWeaponDown;
-
-    public bool IsWeaponUp { get { return _isWeaponUp; } }
-    public bool IsWeaponDown { get { return _isWeaponDown; } }
-
     #endregion
 
     private void Awake()
@@ -186,16 +179,9 @@ public class InputHandler : MonoBehaviour
 
     void HandleAttackInputs()
     {
-        _isWeaponUp = _playerControls.PlayerActions.ChangeWeaponUp.WasPressedThisFrame();
-        _isWeaponDown = _playerControls.PlayerActions.ChangeWeaponDown.WasPressedThisFrame();
         _primaryAttack = _playerControls.PlayerActions.PrimaryAttack.WasPressedThisFrame();
         _secondaryAttack = _playerControls.PlayerActions.SecondaryAttack.WasPressedThisFrame();
-
-       //if (_primaryAttack)
-       //{
-       //    _attackDirection =
-       //}
-    }  //
+    }  
 
     #endregion
 

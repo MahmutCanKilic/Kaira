@@ -21,7 +21,7 @@ public class PlayerInteractor : MonoBehaviour
     public Transform Legs { get { return _legs; } }
     public Transform LedgeCheckHor { get { return _ledgeCheckHor; } }
 
-    #endregion
+    #endregion  
 
     #region Climb
 
@@ -34,35 +34,48 @@ public class PlayerInteractor : MonoBehaviour
 
     #region Enemy
 
+    [Header("Damage Enemy")]
+    [SerializeField] private float _damageDistance = 1f;
     [SerializeField] private LayerMask _enemyLayerMask;
+    [SerializeField] private Transform _upAttack;
+    [SerializeField] private Transform _downAttack;
+    [SerializeField] private Transform _forwardAttack;
 
     #endregion
 
-    private void Awake()
+    private void Update() { }
+
+    #region check functions
+
+    public void CheckDamage(float damage, float direction)
     {
-        //player = GetComponentInParent<PlayerHandler>(); //playerdan direkt tanittik
-    }
+        Collider2D[] enemies;
 
-    private void Update()
-    {
-    }
-
-    public void CheckDamage(float damage, Vector2 direction)
-    {
-        //direction yonunde hasar ver
-
-        Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, player.PlayerData.DamageDistance, _enemyLayerMask);
-
-        foreach (var enemy in enemies)
+        if (direction > 0)
         {
-            IDamageable damageable = enemy.GetComponent<IDamageable>();
-
-            if (damageable != null)
-            {
-                damageable.Damage(player.PlayerData.DamageAmount);
-            }
+            enemies = Physics2D.OverlapCircleAll(_upAttack.position, _damageDistance, _enemyLayerMask);
+        }
+        else if (direction < 0)
+        {
+            enemies = Physics2D.OverlapCircleAll(_downAttack.position, _damageDistance, _enemyLayerMask);
+        }
+        else
+        {
+            enemies = Physics2D.OverlapCircleAll(_forwardAttack.position, _damageDistance, _enemyLayerMask);
         }
 
+        if(enemies.Length>0)
+        {
+            foreach (var enemy in enemies)
+            {
+                IDamageable damageable = enemy.GetComponent<IDamageable>();
+
+                if (damageable != null)
+                {
+                    damageable.Damage(player.PlayerData.DamageAmount);
+                }
+            }
+        }     
     }
 
     public bool CheckIfTouchingWall(float distance)
@@ -100,6 +113,8 @@ public class PlayerInteractor : MonoBehaviour
             return false;
         }
     }
+
+    #endregion
 
     #region other functions
 
@@ -139,26 +154,15 @@ public class PlayerInteractor : MonoBehaviour
         return bodyInteract;
     }
 
-    //public bool BodyInteractor(Vector3 whichPart, LayerMask getMask, float interactionDist, out RaycastHit2D sendHit)
-    //{
-    //    bool bodyInteract = Physics2D.Raycast(whichPart, transform.right, out sendHit, interactionDist, getMask);
-    //
-    //    if (bodyInteract)
-    //    {
-    //        Debug.DrawRay(whichPart, transform.right, Color.green);
-    //    }
-    //    else
-    //    {
-    //        Debug.DrawRay(whichPart, transform.right, Color.magenta);
-    //    }
-    //
-    //    return bodyInteract;
-    //}
-
     #endregion
 
     private void OnDrawGizmos()
     {
-        
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(_forwardAttack.position, _damageDistance);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(_upAttack.position, _damageDistance);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(_downAttack.position,_damageDistance);
     }
 }
