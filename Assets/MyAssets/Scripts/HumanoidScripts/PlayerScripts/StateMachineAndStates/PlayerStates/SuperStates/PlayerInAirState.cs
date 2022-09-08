@@ -64,7 +64,11 @@ public class PlayerInAirState : BaseState
     {
         CheckJumpMultiplier();
 
-        if (_player.Core.Movement.IsGrounded && _player.Core.Movement.IsPlayerJumping && _player.Core.Movement.JumpVelocity_Y < 0.01f)
+        if (_player.Core.Combat.IsPlayerDead)
+        {
+            SwitchState(_player.DyingState);
+        }
+        else if (_player.Core.Movement.IsGrounded && _player.Core.Movement.IsPlayerJumping && _player.Core.Movement.JumpVelocity_Y < 0.01f)
         {
             _player.AnimationController.animator.SetBool("isJumping", false);
             _player.Core.Movement.IsPlayerJumping = false;

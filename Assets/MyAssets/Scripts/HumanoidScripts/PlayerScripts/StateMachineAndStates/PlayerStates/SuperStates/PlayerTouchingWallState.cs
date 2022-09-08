@@ -23,7 +23,11 @@ public class PlayerTouchingWallState : BaseState
 
     public override void CheckSwitchStates()
     {
-        if (_player.InputHandler.IsJumpPressed) //|| _player.Core.Movement.IsAddingImpact) //jumppad eklenirse
+        if(_player.Core.Combat.IsPlayerDead)
+        {
+            SwitchState(_player.DyingState);
+        }
+        else if (_player.InputHandler.IsJumpPressed) //|| _player.Core.Movement.IsAddingImpact) //jumppad eklenirse
         {
             SwitchState(_player.WallJumpState);           
         }

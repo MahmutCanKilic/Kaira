@@ -14,6 +14,8 @@ public class PlayerHandler : BaseHumanoid
     public PlayerWallJumpState WallJumpState { get; private set; }
     public PlayerWallSlideState WallSlideState { get; private set; }
     public PlayerDashState DashState { get; private set; }
+    public PlayerRespawnState RespawnState { get; private set; }
+    public PlayerDyingState DyingState { get; private set; }
     // public PlayerDashAttack DashAttackState { get; private set; }
     public PlayerPrimaryAttackState PrimaryAttackState { get; private set; }
     public PlayerSecondaryAttackState SecondaryAttackState { get; private set; }
@@ -73,6 +75,8 @@ public class PlayerHandler : BaseHumanoid
         WallJumpState = new PlayerWallJumpState(this, stateMachine, _playerData, "inAir");
         WallSlideState = new PlayerWallSlideState(this, stateMachine, _playerData, "wallslide");
 
+        RespawnState = new PlayerRespawnState(this, stateMachine, _playerData, "respawning");
+        DyingState = new PlayerDyingState(this, stateMachine, _playerData, "dying");
         //DashAttackState = new PlayerDashAttack(this, stateMachine, _playerData, "dashAttack");
         PrimaryAttackState = new PlayerPrimaryAttackState(this, stateMachine, _playerData, "primaryAttack");
         SecondaryAttackState = new PlayerSecondaryAttackState(this, stateMachine, _playerData, "secondaryAttack");
@@ -105,11 +109,10 @@ public class PlayerHandler : BaseHumanoid
         #endregion
 
         Debug.DrawRay(PlayerInteractor.Hips.position, transform.right * PlayerData.WallCheckDist, Color.cyan);
-        Debug.DrawRay(PlayerInteractor.LedgeCheckHor.position, Vector2.down * (PlayerInteractor.LedgeCheckHor.position.y - PlayerInteractor.Hips.position.y), Color.black);    
+        Debug.DrawRay(PlayerInteractor.LedgeCheckHor.position, Vector2.down * (PlayerInteractor.LedgeCheckHor.position.y - PlayerInteractor.Hips.position.y), Color.black);              
     }
 
-
-    public override void FixedUpdate() { base.FixedUpdate(); }  
+    public override void FixedUpdate() { base.FixedUpdate(); }      
 
     //bu burada kaldi kekwait
     private void SetupJumpVariables()

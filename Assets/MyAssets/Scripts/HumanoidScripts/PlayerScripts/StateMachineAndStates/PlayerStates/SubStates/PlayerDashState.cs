@@ -17,15 +17,12 @@ public class PlayerDashState : PlayerAbilityState
         base.EnterState();
 
         _amountOfDashesLeft--;
-        //damage yemeyi kapa**********************
 
+        //damage yemeyi kapa**********************
+        _player.Core.Combat.CanTakeDamage = false;
 
         _player.JumpState.ResetAmountOfJumpsLeft();
-        //_player.Core.Movement.CanMove = false;
         //_isPrimaryAttackPressed = false;
-        //_isSecondaryAttackPressed = false;
-
-
 
         _player.AnimationController.PlayTargetAnimation("DodgeRollRouter", false);     //Play roll animation
     }
@@ -36,16 +33,11 @@ public class PlayerDashState : PlayerAbilityState
 
         _currentSubState = null;
         _player.Core.Movement.SetVelocityX(_player.transform.right.x * _player.PlayerData.DashVelocity);
+
         // if (_player.InputHandler.AttackInputs[(int)CombatInputs.primary])
         // {
         //     _isPrimaryAttackPressed = true;
         //     _isSecondaryAttackPressed = false;
-        // }
-        //
-        // if (_player.InputHandler.AttackInputs[(int)CombatInputs.secondary])
-        // {
-        //     _isSecondaryAttackPressed = true;
-        //     _isPrimaryAttackPressed = false;
         // }
 
         CheckSwitchStates();
@@ -56,16 +48,12 @@ public class PlayerDashState : PlayerAbilityState
     public override void ExitState()
     {
         base.ExitState();
+
         //damage yemeyi ac
+        //_player.Core.Movement.CanMove = true;
+        _player.Core.Combat.CanTakeDamage = true;
 
-        _player.Core.Movement.CanMove = true;
-
-        _player.Core.Movement.SetVelocityX(_player.Core.Movement.WalkSpeed * _player.InputHandler.horizontalInput);
-
-
-    }
-    public override void InitializeSubState()
-    {
+        _player.Core.Movement.SetVelocityX(_player.Core.Movement.WalkSpeed * _player.InputHandler.horizontalInput);       
     }
 
     public override void CheckSwitchStates()

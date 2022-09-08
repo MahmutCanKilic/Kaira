@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using MoreMountains.Feedbacks;
 
 public class BaseHumanoid : MonoBehaviour
 {
@@ -65,9 +66,10 @@ public class BaseHumanoid : MonoBehaviour
             currentStateName = "null";
         }
 
-        #endregion
+        #endregion        
     }
 
+  
     public virtual void FixedUpdate()
     {
         stateMachine.CurrentState.PhysicsUpdateStates();//ac

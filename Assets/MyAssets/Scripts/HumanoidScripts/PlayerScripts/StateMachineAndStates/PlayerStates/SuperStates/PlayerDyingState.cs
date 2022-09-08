@@ -12,20 +12,26 @@ public class PlayerDyingState : BaseState
     public override void EnterState()
     {
         //dying animasyonuna giris
-        //game manager dying state gecis
-        //event dying event
-        //hasar almayi ve dusmanlarin gormesini kapa (?)
+        _player.Core.Movement.CanSetGravity = false;
+        _player.AnimationController.PlayTargetAnimation("DyingRouter", false);       
+        //_player.PlayerEvents.OnDyingEvent();
 
+        //game manager dying state gecis    
     }
 
     public override void UpdateState()
     {
+        CheckSwitchStates();
+        _player.Core.Movement.SetVelocityZero();
 
     }
 
     public override void CheckSwitchStates()
     {
-
+        if(!_player.Core.Combat.IsPlayerDead)
+        {
+            SwitchState(_player.RespawnState);
+        }
     }
 
     public override void PhysicsUpdateState()
@@ -35,7 +41,7 @@ public class PlayerDyingState : BaseState
 
     public override void ExitState()
     {
-
+        _player.Core.Movement.CanSetGravity = true;
     }
 
     public override void InitializeSubState()

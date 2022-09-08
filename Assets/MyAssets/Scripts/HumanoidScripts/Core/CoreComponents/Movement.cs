@@ -46,6 +46,7 @@ public class Movement : CoreComponents //IImpactable //for jumppads
     [SerializeField] private float _groundRad = 0.1f;
     [SerializeField] private LayerMask groundMask;
 
+    public bool CanSetGravity { get; set; }
     public Transform GroundCheck { get { return _groundCheck; } }
     public bool IsGrounded { get { return _isGrounded; } }
     public float Gravity { get { return _gravity; } set { _gravity = value; } }
@@ -84,6 +85,7 @@ public class Movement : CoreComponents //IImpactable //for jumppads
         base.Awake();
 
         Rigidbody = GetComponentInParent<Rigidbody2D>();
+        CanSetGravity = true;
 
         CheckGround();
     }
@@ -112,35 +114,38 @@ public class Movement : CoreComponents //IImpactable //for jumppads
 
     public void HandleSetGravity()
     {
-        bool isFalling = JumpVelocity_Y <= 0.0f && _isPlayerJumping;
-        float fallMultiplier = 2f;
+        if (CanSetGravity)
+        {
+            bool isFalling = JumpVelocity_Y <= 0.0f && _isPlayerJumping;
+            float fallMultiplier = 2f;
 
-        if (IsGrounded && !_isPlayerJumping)
-        {
-            JumpVelocity = Vector3.zero;
-            JumpVelocity_Y = GroundedGravity;
-        }
-        else if (isFalling)
-        {
-            float previousYVelocity = JumpVelocity_Y;
-            float newYVelocity = JumpVelocity_Y + (_jumpGravity * fallMultiplier * Time.deltaTime);
-            float nextYVelocity = Mathf.Max((previousYVelocity + newYVelocity) * 0.5f, -20f);
-            JumpVelocity_Y = nextYVelocity;
-        }
-        else
-        {
-            float previousYVelocity = JumpVelocity_Y;
-            float newYVelocity = JumpVelocity_Y + (_jumpGravity * Time.deltaTime);
-            float nextYVelocity = (previousYVelocity + newYVelocity) * 0.5f;
-            JumpVelocity_Y = nextYVelocity;
-        }
+            if (IsGrounded && !_isPlayerJumping)
+            {
+                JumpVelocity = Vector3.zero;
+                JumpVelocity_Y = GroundedGravity;
+            }
+            else if (isFalling)
+            {
+                float previousYVelocity = JumpVelocity_Y;
+                float newYVelocity = JumpVelocity_Y + (_jumpGravity * fallMultiplier * Time.deltaTime);
+                float nextYVelocity = Mathf.Max((previousYVelocity + newYVelocity) * 0.5f, -20f);
+                JumpVelocity_Y = nextYVelocity;
+            }
+            else
+            {
+                float previousYVelocity = JumpVelocity_Y;
+                float newYVelocity = JumpVelocity_Y + (_jumpGravity * Time.deltaTime);
+                float nextYVelocity = (previousYVelocity + newYVelocity) * 0.5f;
+                JumpVelocity_Y = nextYVelocity;
+            }
 
-        if (JumpVelocity_Y < _maxJumpVelocity)
-        {
-            JumpVelocity_Y = _maxJumpVelocity;
-        }
+            if (JumpVelocity_Y < _maxJumpVelocity)
+            {
+                JumpVelocity_Y = _maxJumpVelocity;
+            }
 
-        SetVelocityY(JumpVelocity_Y);
+            SetVelocityY(JumpVelocity_Y);
+        }
     }
 
     public void SetJumpVeloZero()

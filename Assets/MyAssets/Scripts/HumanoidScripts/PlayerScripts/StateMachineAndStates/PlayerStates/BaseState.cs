@@ -66,10 +66,11 @@ public abstract class BaseState
     public void UpdateStates()
     {
         UpdateState();
+
         if (_currentSubState != null)
         {
             _currentSubState.UpdateStates();
-        }
+        }   
     }
 
     public void PhysicsUpdateStates()
@@ -123,5 +124,4 @@ public abstract class BaseState
     public virtual void AnimationStartMovement() { }
     public virtual void AnimationStopMovement() { }
     public virtual void AnimationActionTrigger() { }
-    //public virtual void AnimationCanThirdAttack() { }
 }

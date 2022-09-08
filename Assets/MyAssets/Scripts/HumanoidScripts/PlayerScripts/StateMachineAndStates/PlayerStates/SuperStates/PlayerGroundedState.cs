@@ -38,7 +38,11 @@ public class PlayerGroundedState : BaseState
     public override void CheckSwitchStates()
     {
 
-        if (_player.InputHandler.PrimaryAttack)
+        if (_player.Core.Combat.IsPlayerDead)
+        {
+            SwitchState(_player.DyingState);
+        }
+        else if(_player.InputHandler.PrimaryAttack)
         {
             SwitchState(_player.PrimaryAttackState);
         }

@@ -39,10 +39,15 @@ public class PlayerAbilityState : BaseState
         }
         else
         {
-            if (_player.Core.Movement.IsAddingImpact)
+            if (_player.Core.Combat.IsPlayerDead)
+            {
+                SwitchState(_player.DyingState);
+            }
+            else if (_player.Core.Movement.IsAddingImpact)
             {
                 SwitchState(_player.JumpState);
             }
+
         }
     }
 
