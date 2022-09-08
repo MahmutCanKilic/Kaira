@@ -6,6 +6,7 @@ public class PlayerRespawnState : BaseState
 {
     public PlayerRespawnState(PlayerHandler player, StateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
+        IsRootState = true;
     }
 
     public override void CheckSwitchStates()
