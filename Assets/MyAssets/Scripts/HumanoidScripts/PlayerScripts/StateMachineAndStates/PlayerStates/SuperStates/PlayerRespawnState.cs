@@ -18,6 +18,7 @@ public class PlayerRespawnState : BaseState
     {
         _player.Core.Combat.Respawn();
         _player.AnimationController.PlayTargetAnimation("RespawningRouter", false);
+        _player.PlayerEvents.OnRespawning();
         //set last checkpoint
     }
 

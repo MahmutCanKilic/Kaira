@@ -14,7 +14,7 @@ public class PlayerDyingState : BaseState
         //dying animasyonuna giris
         _player.Core.Movement.CanSetGravity = false;
         _player.AnimationController.PlayTargetAnimation("DyingRouter", false);       
-        //_player.PlayerEvents.OnDyingEvent();
+        _player.PlayerEvents.OnDying();
 
         //game manager dying state gecis    
     }
